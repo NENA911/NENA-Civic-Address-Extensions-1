@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<xs:schema xmlns:can="urn:nena:xml:ns:pidf:nenaCivicAddr" xmlns:ca="urn:ietf:params:xml:ns:pidf:geopriv10:civicAddr" xmlns:cae="urn:ietf:params:xml:ns:pidf:geopriv10:civicAddr:ext" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="urn:nena:xml:ns:pidf:nenaCivicAddr" elementFormDefault="qualified">
+  <xs:import namespace="urn:ietf:params:xml:ns:pidf:geopriv10:civicAddr" schemaLocation="civicAddr.xsd" />
+  <xs:import namespace="urn:ietf:params:xml:ns:pidf:geopriv10:civicAddr:ext" schemaLocation="ext.xsd" />
+  <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="http://www.w3.org/2001/xml.xsd" />
+  <xs:annotation>
+    <xs:appinfo source="urn:nena:xml:ns:pidf:nenaCivicAddr">
+NENA Civic Address extensions for PIDF-LO
+</xs:appinfo>
+    <xs:documentation>
+This schema defines two North American extensions to PIDF-LO, one that adds a
+separator between a Street Type Prefix and a Street Name, and another that adds a
+component part of a complete Landmark name. The latter contains an order field
+to compose the complete Landmark Name from the component parts.
+</xs:documentation>
+  </xs:annotation>
+  <xs:element name="STPS" type="ca:caType" />
+  <!-- Street Type Prefix Separator -->
+  <xs:element name="LMKP" type="can:LmkpType" />
+  <xs:complexType name="LmkpType">
+    <xs:complexContent>
+      <xs:restriction base="xs:anyType">
+        <xs:sequence>
+          <xs:any namespace="##any" processContents="lax" minOccurs="0" maxOccurs="unbounded" />
+        </xs:sequence>
+        <xs:attribute name="name" type="xs:token" use="required" />
+        <xs:attribute name="order" type="xs:integer" use="required" />
+        <xs:attribute ref="xml:lang" use="optional" />
+        <xs:anyAttribute namespace="##other" processContents="lax" />
+      </xs:restriction>
+    </xs:complexContent>
+  </xs:complexType>
+</xs:schema>
